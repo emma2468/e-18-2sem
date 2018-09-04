@@ -6,6 +6,7 @@
     <style>
         body{
             background-color:rgb(240,240,240);
+            margin: 0;
         }
         article{
             padding: 1em;
@@ -26,11 +27,40 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+/*    NYT INDHOLD TIL SINGKE VIEW*/
+        #modal{
+            background-color: rgba(0, 0, 0, .7);
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            text-align: center;
+            display: none;
+        }
 
+        #modal-content{
+            background-color: rgba(250, 250, 250, 1);
+            width: 70vw;
+            height: 70vh;
+            margin: auto;
+        }
 
+        #modal.vis{
+            display: block;
+        }
+/*SLUT*/
     </style>
 </head>
 <body>
+<!--  NYT INDHOLD TIL SINGLE WIEV-->
+   <section id="modal">
+      <button>Close
+      </button>
+       <div id="modal-content">
+           <h2 clss="modal-navn"></h2>
+           <img class="modal-billede" src="" alt="">
+       </div>
+   </section>
+<!--   SLUT-->
     <main class="container">
        <section class="data-container"></section>
     </main>
@@ -62,6 +92,11 @@
                 //indsæt data i klonen
                 klon.querySelector("h2").textContent = person.navn;
                 klon.querySelector("img").src = person.billede;
+//NYT INDHOLD til single wiev
+               klon.querySelector("img").addEventListener("click", () =>{
+                   visModal();
+               })
+//SLUT
                 klon.querySelector(".data-github").textContent = person.github;
                 klon.querySelector(".data-tlf").textContent = person.tlf;
                 klon.querySelector(".data-mail").textContent = person.mail;
@@ -70,6 +105,28 @@
                 dest.appendChild(klon);
            } )
        }
+
+       //NYT INDHOLD TIL SINGLE WIEV
+       function visModal(){
+           let modal = document.querySelector("#modal");
+           document.querySelector("#modal").classList.add("vis");
+           modal.querySelector("button").addEventListener("click", () => {
+               modal.classList.remove("vis");
+           })
+       }
+//DU kan også skrive variablen øverst i script, så du ikke behøver at blive ved med at skrive det igen og igen. Og derfor skrive det på denne måde:
+
+//       let modal = document.querySelector("#modal");
+//
+//       function visModal(){
+//           modal.classList.add("vis");
+//           moda.querySelector("button").addEventListener("click", skjulModal);
+//       }
+//
+//       function skjulModal(){
+//           modal.classList.remove("vis");
+//       }
+       //SLUT
     </script>
 </body>
 </html>
