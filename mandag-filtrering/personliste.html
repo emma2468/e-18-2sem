@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-<!--  NYT INDHOLD TIL SINGLE WIEV-->
+<!--  NYT INDHOLD TIL SINGLE view-->
    <section id="modal">
       <button>Close
       </button>
@@ -92,7 +92,7 @@
                 //indsæt data i klonen
                 klon.querySelector("h2").textContent = person.navn;
                 klon.querySelector("img").src = person.billede;
-//NYT INDHOLD til single wiev
+//NYT INDHOLD til single view
                klon.querySelector("img").addEventListener("click", () =>{
                    visModal();
                })
@@ -106,7 +106,7 @@
            } )
        }
 
-       //NYT INDHOLD TIL SINGLE WIEV
+       //NYT INDHOLD TIL SINGLE view
        function visModal(){
            let modal = document.querySelector("#modal");
            document.querySelector("#modal").classList.add("vis");
