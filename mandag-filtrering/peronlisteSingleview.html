@@ -35,19 +35,19 @@
     </style>
 </head>
 <body>
-
+<!--nyt indhold-->
     <main class="container">
-       <section class="data-container"></section>
-    </main>
-   <template class="data-template">
-      <article class="person">
+       <section class="data-container">
+           <article class="person">
           <h2></h2>
           <img src="" alt=""><br>
           mail: <a class="data-mail" href=""></a><br>
           github: <span class="data-github"></span><br>
           tlf: <span class="data-tlf"></span><br>
       </article>
-   </template>
+       </section>
+    </main>
+<!--    slut-->
 
    <script>
        let personer;
@@ -68,7 +68,11 @@
                 //indsæt data i klonen
                 klon.querySelector("h2").textContent = person.navn;
                 klon.querySelector("img").src = person.billede;
-
+               //nyt indhold
+                klon.querySelector("img").addEventListener("click", ()=>{
+                    window.location.href="single.html";
+                });
+               //slut
                 klon.querySelector(".data-github").textContent = person.github;
                 klon.querySelector(".data-tlf").textContent = person.tlf;
                 klon.querySelector(".data-mail").textContent = person.mail;

@@ -6,6 +6,7 @@
     <style>
         body{
             background-color:rgb(240,240,240);
+            margin: 0;
         }
         article{
             padding: 1em;
@@ -18,6 +19,10 @@
             margin: 0 auto;
             display:grid;
         }
+
+        img{
+            width: 100%;
+        }
        @media screen and (min-width:580px){
             .data-container{
                 padding-left:10%;
@@ -27,30 +32,25 @@
             }
         }
 
-
     </style>
 </head>
 <body>
-   <header>
-       <button class="menu-item" data-civilstatus="alle">Alle personer</button>
-       <button class="menu-item" data-civilstatus="single">Singler</button>
-       <button class="menu-item" data-civilstatus="optaget">Optaget</button>
-   </header>
+
     <main class="container">
-       <section class="data-container"></section>
-    </main>
-   <template class="data-template">
-      <article class="person">
+       <section class="data-container">
+           <article class="person">
           <h2></h2>
           <img src="" alt=""><br>
-          Status: <span class="data_civilstatus"></span><br>
+          mail: <a class="data-mail" href=""></a><br>
+          github: <span class="data-github"></span><br>
+          tlf: <span class="data-tlf"></span><br>
       </article>
-   </template>
+       </section>
+    </main>
 
    <script>
-       let dest = document.querySelector(".data-container");
        let personer;
-       let civilFilter="alle";
+
         document.addEventListener("DOMContentLoaded", hentJson);
 
         async function hentJson(){
@@ -58,31 +58,28 @@
             personer = await myJson.json();
             visPersoner();
         }
-
-       document.querySelectorAll(".menu-item").forEach(knap=>{
-           knap.addEventListener("click", filtrering);
-       });
-
-       function filtrering(){
-           dest.textContent = "";
-           civilFilter=this.getAttribute("data-civilstatus");
-           visPersoner();
-       }
-
        function visPersoner(){
-           let temp = document.querySelector(".data-template");
+           let dest = document.querySelector(".data-container"),
+           temp = document.querySelector(".data-template");
            //løb personlisten igennem og lav en klon
            personer.forEach( person => {
-               if(person.civilstatus == civilFilter || civilFilter=="alle"){
                 let klon = temp.cloneNode(true).content;
                 //indsæt data i klonen
                 klon.querySelector("h2").textContent = person.navn;
                 klon.querySelector("img").src = person.billede;
-                klon.querySelector(".data_civilstatus").textContent = person.civilstatus;
+                klon.querySelector("img").addEventListener("click", () =>{
+                    window.location.href="single.html"
+                });
+                klon.querySelector(".data-github").textContent = person.github;
+                klon.querySelector(".data-tlf").textContent = person.tlf;
+                klon.querySelector(".data-mail").textContent = person.mail;
+                klon.querySelector(".data-mail").href = "mailto:" + person.mail;
                 //placer klon i DOM
-                dest.appendChild(klon);}
+                dest.appendChild(klon);
            } )
        }
+
+
     </script>
 </body>
 </html>
