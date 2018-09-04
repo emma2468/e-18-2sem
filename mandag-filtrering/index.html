@@ -31,47 +31,11 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
-/*    NYT INDHOLD TIL SINGKE VIEW*/
-        #modal{
-            background-color: rgba(0, 0, 0, .7);
-            height: 100vh;
-            width: 100vw;
-            position: fixed;
-            text-align: center;
-/*            display: none;*/
-            opacity: 0;
-            pointer-events: none;
-            transition: 1s;
 
-        }
-
-        #modal-content{
-            background-color: rgba(250, 250, 250, 1);
-            width: 70vw;
-            height: 70vh;
-            margin: auto;
-        }
-
-        #modal.vis{
-/*            display: block;*/
-            opacity: 1;
-            pointer-events: all;
-            transition: 0.7s;
-        }
-/*SLUT*/
     </style>
 </head>
 <body>
-<!--  NYT INDHOLD TIL SINGLE view-->
-   <section id="modal">
-      <button>Close
-      </button>
-       <div id="modal-content">
-           <h2 class="modal-navn"></h2>
-           <img class="modal-billede" src="" alt="">
-       </div>
-   </section>
-<!--   SLUT-->
+
     <main class="container">
        <section class="data-container"></section>
     </main>
@@ -87,7 +51,7 @@
 
    <script>
        let personer;
-       let modal = document.querySelector("#modal");
+
         document.addEventListener("DOMContentLoaded", hentJson);
 
         async function hentJson(){
@@ -104,11 +68,11 @@
                 //indsæt data i klonen
                 klon.querySelector("h2").textContent = person.navn;
                 klon.querySelector("img").src = person.billede;
-//NYT INDHOLD til single view
+//nyt
                klon.querySelector("img").addEventListener("click", () =>{
-                   visModal(person);
+                   window.location.href = "single.html?github=" + person.github;
                })
-//SLUT
+               //stop
                 klon.querySelector(".data-github").textContent = person.github;
                 klon.querySelector(".data-tlf").textContent = person.tlf;
                 klon.querySelector(".data-mail").textContent = person.mail;
@@ -118,34 +82,7 @@
            } )
        }
 
-       //NYT INDHOLD TIL SINGLE view
-//       function visModal(personen){
-//           let modal = document.querySelector("#modal");
-//           document.querySelector("#modal").classList.add("vis");
-//           modal.querySelector("button").addEventListener("click", () => {
-//               modal.classList.remove("vis");
-//           })
-//       }
-//DU kan også skrive variablen øverst i script, så du ikke behøver at blive ved med at skrive det igen og igen. Og derfor skrive det på denne måde:
 
-
-
-       function visModal(personen){
-           modal.classList.add("vis");
-           modal.querySelector(".modal-navn").textContent=personen.navn;
-           modal.querySelector(".modal-billede").src=personen.billede;
-           modal.querySelector(".modal-billede").alt="Foto af " + personen.billede;
-           display.querySelector(".data-status").textContent = person.civilstatus;
-                    display.querySelector(".data-hobby").textContent = person.hobby;
-
-           modal.querySelector("button").addEventListener("click", skjulModal);
-       }
-
-       function skjulModal(){
-           //window.scrollTo(0);
-           modal.classList.remove("vis");
-       }
-       //SLUT
     </script>
 </body>
 </html>

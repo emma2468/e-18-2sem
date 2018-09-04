@@ -35,7 +35,7 @@
     </style>
 </head>
 <body>
-<!--nyt indhold-->
+
     <main class="container">
        <section class="data-container">
            <article class="person">
@@ -47,42 +47,33 @@
       </article>
        </section>
     </main>
-<!--    slut-->
 
    <script>
-       let personer;
+       let  urlParams = new URLSearchParams(window.location.search);
+       let github = urlParams.get("github");
+       console.log(github);
 
         document.addEventListener("DOMContentLoaded", hentJson);
 
         async function hentJson(){
             let myJson = await fetch("personliste.json");
             personer = await myJson.json();
-            visPersoner();
+            visPerson();
         }
-       function visPersoner(){
-           let dest = document.querySelector(".data-container"),
-           temp = document.querySelector(".data-template");
-           //løb personlisten igennem og lav en klon
-           personer.forEach( person => {
-                let klon = temp.cloneNode(true).content;
-                //indsæt data i klonen
-                klon.querySelector("h2").textContent = person.navn;
-                klon.querySelector("img").src = person.billede;
-               //nyt indhold
-                klon.querySelector("img").addEventListener("click", ()=>{
-                    window.location.href="single.html";
-                });
-               //slut
-                klon.querySelector(".data-github").textContent = person.github;
-                klon.querySelector(".data-tlf").textContent = person.tlf;
-                klon.querySelector(".data-mail").textContent = person.mail;
-                klon.querySelector(".data-mail").href = "mailto:" + person.mail;
-                //placer klon i DOM
-                dest.appendChild(klon);
-           } )
+       function visPerson(){
+           let display = document.querySelector(".data-container");
+            personer.forEach(person => {
+                if (person.github == github) {
+                    display.querySelector("h2").textContent = person.navn;
+                    display.querySelector("img").src = person.billede;
+                    display.querySelector("img").alt = "Foto af" + person.navn;
+                    display.querySelector(".data-status").textContent = person.civilstatus;
+                    display.querySelector(".data-hobby").textContent = person.hobby;
+
+           }
+       })
+
        }
-
-
     </script>
 </body>
 </html>
